@@ -4,7 +4,7 @@
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/"
   },
-  "private": true,
+  "private": false,
   "description": "A small description regarding the package",
   "type": "module",
   "main": "dist/index.js",
