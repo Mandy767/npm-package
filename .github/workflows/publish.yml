@@ -30,8 +30,8 @@ jobs:
         run: npm run build
       - name: Configure Git
         run: |
-          git config --global user.email mandardighe6@gmail.com
-          git config --global user.name Mandy767
+          git config --global user.email "mandardighe6@gmail.com"
+          git config --global user.name "Mandy767"
           - name: Determine Version Bump
           id: version
           run: |
