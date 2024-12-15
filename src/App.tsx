@@ -1,5 +1,5 @@
 import React from 'react';
-import { Loader, useLoader } from './components/Loader';
+import { Loader, useLoader } from '.';
 
 function App() {
   const { isLoading, startLoading, stopLoading } = useLoader();
