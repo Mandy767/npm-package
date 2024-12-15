@@ -37,7 +37,7 @@ jobs:
           run: |
           # Simplified version bump detection
           BUMP_TYPE=$(git log -1 --pretty=%B | grep -iE 'breaking change|major' &&
-          git log -1 --pretty=%B | grep -iE 'feature|minor' && echo 'mi
+          git log -1 --pretty=%B | grep -iE 'feature|minor' && echo 'minor'
           echo 'patch')
           echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
 
