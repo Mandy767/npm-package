@@ -7,6 +7,7 @@ on:
   pull_request:
     branches:
       - main
+
 jobs:
   test-and-publish:
     runs-on: ubuntu-latest
@@ -16,30 +17,37 @@ jobs:
       pull-requests: write
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: "20"
           registry-url: "https://npm.pkg.github.com/"
           scope: "@mandar-org"
+
       - name: Install Dependencies
         run: npm ci
 
       - name: Build Package
         run: npm run build
+
       - name: Configure Git
         run: |
           git config --global user.email "mandardighe6@gmail.com"
           git config --global user.name "Mandy767"
-          - name: Determine Version Bump
-          id: version
-          run: |
+
+      - name: Determine Version Bump
+        id: version
+        run: |
           # Simplified version bump detection
-          BUMP_TYPE=$(git log -1 --pretty=%B | grep -iE 'breaking change|major' &&
-          git log -1 --pretty=%B | grep -iE 'feature|minor' && echo 'minor' ||
-          echo 'patch')
-          echo "bump_type=$BUMP_TYPE" >> $GITHUB_OUTPUT
+          if git log -1 --pretty=%B | grep -iE 'breaking change|major'; then
+            echo "bump_type=major" >> $GITHUB_OUTPUT
+          elif git log -1 --pretty=%B | grep -iE 'feature|minor'; then
+            echo "bump_type=minor" >> $GITHUB_OUTPUT
+          else
+            echo "bump_type=patch" >> $GITHUB_OUTPUT
 
       - name: Bump Version
         run: npm version ${{ steps.version.outputs.bump_type }}
