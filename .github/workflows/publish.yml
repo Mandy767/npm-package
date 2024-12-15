@@ -48,6 +48,7 @@ jobs:
             echo "bump_type=minor" >> $GITHUB_OUTPUT
           else
             echo "bump_type=patch" >> $GITHUB_OUTPUT
+          fi
 
       - name: Bump Version
         run: npm version ${{ steps.version.outputs.bump_type }}
